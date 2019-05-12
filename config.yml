@@ -1,0 +1,3 @@
+config:
+    places_directory: "/home/andrew/.mozilla/firefox/156dl0tg.default/places.sqlite"
+    places_destination: "places.sqlite"
