@@ -29,16 +29,19 @@ class MOZ_PLACE:
         return self.data
 
     def __repr__(self):
-        return (f"<MOZ_PLACE(id='{self.id}', url='{self.url}', title='{self.title}', "
-                f"rev_host='{self.rev_host}', visit_count='{self.visit_count}', "
-                f"hidden='{self.hidden}', typed='{self.typed}', frecency='{self.frecency}', "
-                f"last_visit_date='{self.last_visit_date}', guid='{self.guid}', "
-                f"foreign_count='{self.foreign_count}', url_hash='{self.url_hash}', "
-                f"description='{self.description}', preview_image_url='{self.preview_image_url}', "
-                f"origin_id='{self.origin_id}')>")
-    
+        return (
+            f"<MOZ_PLACE(id='{self.id}', url='{self.url}', title='{self.title}', "
+            f"rev_host='{self.rev_host}', visit_count='{self.visit_count}', "
+            f"hidden='{self.hidden}', typed='{self.typed}', frecency='{self.frecency}', "
+            f"last_visit_date='{self.last_visit_date}', guid='{self.guid}', "
+            f"foreign_count='{self.foreign_count}', url_hash='{self.url_hash}', "
+            f"description='{self.description}', preview_image_url='{self.preview_image_url}', "
+            f"origin_id='{self.origin_id}')>"
+        )
+
     def __str__(self):
         return str(self.url)
+
 
 class MOZ_HISTORYVISIT:
     def __init__(self, data: Dict):
@@ -59,9 +62,11 @@ class MOZ_HISTORYVISIT:
         return self.data
 
     def __repr__(self):
-        return (f"<MOZ_HISTORYVISIT(id='{self.id}', from_visit='{self.from_visit}', "
-                f"place_id='{self.place_id}', visit_date='{self.visit_date}', "
-                f"visit_type='{self.visit_type}', session='{self.session}')>")
-    
+        return (
+            f"<MOZ_HISTORYVISIT(id='{self.id}', from_visit='{self.from_visit}', "
+            f"place_id='{self.place_id}', visit_date='{self.visit_date}', "
+            f"visit_type='{self.visit_type}', session='{self.session}')>"
+        )
+
     def __str__(self):
         return str(self.id)

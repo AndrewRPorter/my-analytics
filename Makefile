@@ -1,4 +1,5 @@
-all: run
+all: clean
 
-run:
-	echo "running..."
+clean:
+	rm -f *.pyc
+	rm -rf *__pycache__
