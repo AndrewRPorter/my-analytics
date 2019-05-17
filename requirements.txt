@@ -1,2 +1,5 @@
 pyyaml
 pandas
+numpy
+pytz
+matplotlib

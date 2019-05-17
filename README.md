@@ -15,4 +15,4 @@ python3 main.py
 
 ## Schema
 
-![schema](assets/places-schema.png) {.center}
+![schema](assets/places-schema.png)

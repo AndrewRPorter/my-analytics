@@ -1,5 +1,5 @@
 import sqlite3
-import sys
+from dataclasses import asdict
 
 import pandas as pd
 import yaml
@@ -19,14 +19,14 @@ def get_all_places():
 
     for row in c.fetchall():
         data = dict(zip(column_names, row))
-        place = models.MOZ_PLACE(data)
+        place = models.MOZ_PLACE(**data)  # create dataclass
         places.append(place)
 
     places.sort(key=lambda x: x.visit_count, reverse=True)  # sort based on visit count
 
     conn.close()
 
-    places = [place.to_dict() for place in places]
+    places = [asdict(place) for place in places]  # convert dataclass to dict
 
     df = pd.DataFrame(places)
     return df
@@ -42,12 +42,12 @@ def get_all_visits():
 
     for row in c.fetchall():
         data = dict(zip(column_names, row))
-        visit = models.MOZ_HISTORYVISIT(data)
+        visit = models.MOZ_HISTORYVISIT(**data)  # create dataclass
         visits.append(visit)
 
     conn.close()
 
-    visits = [visit.to_dict() for visit in visits]
+    visits = [asdict(visit) for visit in visits]  # convert dataclass to dict
 
     df = pd.DataFrame(visits)
     return df

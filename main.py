@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-import datetime
 import os
 import shutil
-import sqlite3
 import sys
 
 import yaml
@@ -26,7 +24,7 @@ def run():
         print(f"Unable to find '{config['config']['places_directory']}'")
         sys.exit()
 
-    plot.plot_places()
+    plot.plot_all()
 
 
 if __name__ == "__main__":
