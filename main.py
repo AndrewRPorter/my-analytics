@@ -25,6 +25,7 @@ def run():
         sys.exit()
 
     plot.plot_visit_counts()
+    plot.plot_visit_times()
 
 
 if __name__ == "__main__":

@@ -1,13 +1,13 @@
 import random
+from datetime import datetime
 
 import numpy as np
-from matplotlib import dates as mdates
+import pandas as pd
 from matplotlib import pyplot as plt
-from pytz import timezone
 
 from my_analytics.database import db_interface
+from my_analytics.stats.colors import ColorEnum
 
-tz = timezone("US/Eastern")  # setting EST timezone information
 plt.style.use("ggplot")
 
 
@@ -38,4 +38,64 @@ def plot_visit_counts():
     plt.title("Website Usage Visit Distributions")
     plt.xticks([])  # remove x ticks
     plt.yticks([])  # remove y ticks
+    plt.show()
+
+
+def plot_visit_times():
+    """Scatters visit times"""
+    visits = db_interface.get_all_visits()
+    places = db_interface.get_all_places()
+    visits["visit_month"] = visits["visit_date"].apply(
+        lambda x: datetime.fromtimestamp(x / 1_000_000).strftime("%B")
+    )  # get string representation of month
+    visits["visit_hour"] = visits["visit_date"].apply(
+        lambda x: int(datetime.fromtimestamp(x / 1_000_000).strftime("%H"))
+    )  # get 24 hour value
+
+    visit_counts = []
+    for index, row in visits.iterrows():
+        place = places[places.id == row.id]
+        try:
+            visit_counts.append(int(place.visit_count))
+        except TypeError:  # some places have no visit_count
+            visit_counts.append(0)
+
+    x, y, z = visits.visit_hour, visit_counts, visits.visit_month
+
+    for _x, _y, _z in zip(x, y, z):
+        color = ColorEnum[_z].value  # index ColorEnum to get color for specific month
+        plt.scatter(_x, _y, s=10 * _y, color=color)
+
+    plt.title("Site Visit Time Distribution")
+    plt.ylabel("Visit Count")
+    plt.xlabel("Time (HH:MM)")
+    plt.xticks(
+        range(0, 24),
+        (
+            "00:00",
+            "01:00",
+            "02:00",
+            "03:00",
+            "04:00",
+            "05:00",
+            "06:00",
+            "07:00",
+            "08:00",
+            "09:00",
+            "10:00",
+            "11:00",
+            "12:00",
+            "13:00",
+            "14:00",
+            "15:00",
+            "16:00",
+            "17:00",
+            "18:00",
+            "19:00",
+            "20:00",
+            "21:00",
+            "22:00",
+            "23:00",
+        ),
+    )  # set 24 hour x axis ticks
     plt.show()

@@ -15,4 +15,12 @@ python3 main.py
 
 ## Schema
 
+Below is the places.sqlite schema from FireFox documentation:
+
 ![schema](assets/places-schema.png)
+
+## Output
+
+![websites](assets/website_distributions.png)
+
+![times](assets/time_distributions.png)
