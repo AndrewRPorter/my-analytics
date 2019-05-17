@@ -24,7 +24,7 @@ def run():
         print(f"Unable to find '{config['config']['places_directory']}'")
         sys.exit()
 
-    plot.plot_all()
+    plot.plot_visit_counts()
 
 
 if __name__ == "__main__":

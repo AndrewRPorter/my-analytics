@@ -11,9 +11,9 @@ tz = timezone("US/Eastern")  # setting EST timezone information
 plt.style.use("ggplot")
 
 
-def plot_all():
+def plot_visit_counts():
+    """Plots a random distribution of place visit counts"""
     places = db_interface.get_all_places()
-    visits = db_interface.get_all_visits()
 
     fig, ax = plt.subplots()
 

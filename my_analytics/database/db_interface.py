@@ -9,8 +9,19 @@ from . import models
 config = yaml.safe_load(open("config.yml"))
 
 
-def get_all_places():
-    conn = sqlite3.connect(config["config"]["places_destination"])
+def connect(func):
+    """Decorator to create a sqlite database connection when needed."""
+
+    def wrapper():
+        conn = sqlite3.connect(config["config"]["places_destination"])
+        return func(conn)
+
+    return wrapper
+
+
+@connect
+def get_all_places(conn):
+    """Gets all MOZ_PLACES from database"""
     c = conn.cursor()
     c.execute("SELECT * FROM moz_places")
     column_names = list(map(lambda x: x[0], c.description))
@@ -32,8 +43,9 @@ def get_all_places():
     return df
 
 
-def get_all_visits():
-    conn = sqlite3.connect(config["config"]["places_destination"])
+@connect
+def get_all_visits(conn):
+    """Gets all MOZ_HISTORYVISITS from database"""
     c = conn.cursor()
     c.execute("SELECT * FROM moz_historyvisits")
     column_names = list(map(lambda x: x[0], c.description))
