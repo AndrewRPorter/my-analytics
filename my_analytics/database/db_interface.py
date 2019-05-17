@@ -14,7 +14,9 @@ def connect(func):
 
     def wrapper():
         conn = sqlite3.connect(config["config"]["places_destination"])
-        return func(conn)
+        ret_func = func(conn)
+        conn.close()
+        return ret_func
 
     return wrapper
 
@@ -34,9 +36,6 @@ def get_all_places(conn):
         places.append(place)
 
     places.sort(key=lambda x: x.visit_count, reverse=True)  # sort based on visit count
-
-    conn.close()
-
     places = [asdict(place) for place in places]  # convert dataclass to dict
 
     df = pd.DataFrame(places)
@@ -56,8 +55,6 @@ def get_all_visits(conn):
         data = dict(zip(column_names, row))
         visit = models.MOZ_HISTORYVISIT(**data)  # create dataclass
         visits.append(visit)
-
-    conn.close()
 
     visits = [asdict(visit) for visit in visits]  # convert dataclass to dict
 
